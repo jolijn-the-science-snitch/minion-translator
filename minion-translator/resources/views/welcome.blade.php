@@ -4,18 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>NASA - APOD</title>
 
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Poiret+One|Pontano+Sans" rel="stylesheet"> 
 
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
                 height: 100vh;
                 margin: 0;
             }
@@ -40,59 +40,92 @@
                 top: 18px;
             }
 
-            .content {
+            .title {
+                font-size: 74px;
+                color: #636b6f;
+                font-family: 'Poiret One', cursive;
+                font-weight: 200;
                 text-align: center;
             }
 
-            .title {
-                font-size: 84px;
+            h3 {
+                font-size: 44px;
+                color: #636b6f;
+                font-family: 'Poiret One', cursive;
+                font-weight: 200;
             }
 
-            .links > a {
+            p {
                 color: #636b6f;
                 padding: 0 25px;
-                font-size: 13px;
+                font-size: 18px;
                 font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
+                font-family: 'Pontano Sans', sans-serif;
             }
 
             .m-b-md {
-                margin-bottom: 30px;
+                margin-bottom: 10px;
+                margin-top: 20px;
+            }
+
+            #copyright, #apod_title {
+                text-align: center;
+            }
+            
+            #apod_explaination {
+                width: 40%;
+                margin-left: 30%;
+            }
+
+            #apod_img_id, #apod_vid_id {
+                margin-left: 40%;
             }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    NASA - Astronomy Picture of the Day
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="form-group">
+                    <img id="apod_img_id" width="20%"/>
+
+                    <iframe id="apod_vid_id" type="text/html" width="60%" height="35%" frameborder="0"></iframe>
+                    <p id="copyright"></p>
+
+                    <h3 id="apod_title"></h3>
+                    <p id="apod_explaination"></p>
                 </div>
             </div>
         </div>
+
+        <script>
+            $.ajax({
+                type:'GET',
+                url:'https://api.nasa.gov/planetary/apod?api_key=SEMZJDW4gyjVfIlczzCmvvD0va3zGBx9foWbuCMU',
+                success: function(result){
+                    if("copyright" in result) {
+                        $("#copyright").text("Credits: " + result.copyright);
+                    }
+                    else {
+                        $("#copyright").text("Credits: " + "Public Domain");
+                    }
+                    
+                    if(result.media_type == "video") {
+                        $("#apod_img_id").css("display", "none"); 
+                        $("#apod_vid_id").attr("src", result.url);
+                    }
+                    else {
+                        $("#apod_vid_id").css("display", "none"); 
+                        $("#apod_img_id").attr("src", result.url);
+                    }
+
+                    $("#apod_explaination").text(result.explanation);
+                    $("#apod_title").text(result.title);
+                },
+            });
+        </script>
     </body>
 </html>
