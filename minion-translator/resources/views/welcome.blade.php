@@ -10,14 +10,15 @@
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Poiret+One|Pontano+Sans" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Poiret+One|Pontano+Sans|Rock+Salt|La+Belle+Aurore" rel="stylesheet"> 
 
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/3472/subtlepatterns-wavegrid.png');
                 height: 100vh;
                 margin: 0;
+                padding-bottom: 100%;
             }
 
             .full-height {
@@ -46,6 +47,7 @@
                 font-family: 'Poiret One', cursive;
                 font-weight: 200;
                 text-align: center;
+                margin-top: 50px;
             }
 
             h3 {
@@ -65,20 +67,89 @@
 
             .m-b-md {
                 margin-bottom: 10px;
-                margin-top: 20px;
             }
 
-            #copyright, #apod_title {
-                text-align: center;
+            .polaroid {
+                border: 1rem solid #f6f6f3;
+                border-bottom: 5rem solid #f6f6f3;
+                width: 40vw;
+                min-width: 18rem;
+                height: 40vw;
+                min-height: 18rem;
+                box-shadow: 1rem 1rem 1rem -0.5rem rgba(0, 0, 0, 0.54);
+                margin: 4rem auto;
+                text-align: right;
+                position: relative;
+                transition: all 250ms ease;
             }
-            
-            #apod_explaination {
+
+            .polaroid__image {
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .polaroid__caption {
+                font-family: 'Rock Salt', cursive;
+                padding: 0.5rem;
+            }
+
+            .polaroid--rotate-right {
+                transform: rotate(3deg);
+            }
+
+            .polaroid--rotate-left {
+                transform: rotate(-4deg);
+            }
+
+            .post-card {
+                width: 900px;
+                height: auto;
+                background: url('https://www.toptal.com/designers/subtlepatterns/patterns/lightpaperfibers.png');
+                transform: translate(-50%, -50%);
+                left: 50%;
+                margin-top: 20%;
+                position: absolute;
+                padding: 12px;
+            }
+
+            .post-stample {
+                background: url('http://virtualstampclub.com/lloydblog/wp-content/uploads/2017/12/s_2018usflag.png');
+                background-size: 70px 100px;
+                width: 70px;
+                height: 100px;
+                position: absolute;
+                right: 12px;
+                border: 1px solid black;
+            }
+
+            .post-card__title {
+                font-family: 'La Belle Aurore';
+            }
+
+            .content-left {
+                width: calc(50%);
+                font-family: 'La Belle Aurore';
+                font-size: 21px;
+                line-height: 1.2;
+                float: left;
+            }
+
+            .content-right {
+                margin-top: 65px;
                 width: 40%;
-                margin-left: 30%;
+                float: right;
             }
 
-            #apod_img_id, #apod_vid_id {
-                margin-left: 40%;
+            .adress-line {
+                display: block;
+                margin: 10px 20px;
+                font-family: 'La Belle Aurore';
+                font-size: 18px;
+                border-bottom: 1px solid black;
+            }
+
+            .content {
+
             }
         </style>
     </head>
@@ -90,13 +161,24 @@
                 </div>
 
                 <div class="form-group">
-                    <img id="apod_img_id" width="20%"/>
+                    <div class="polaroid polaroid--rotate-left">
+                        <img id="apod_img_id" class="polaroid__image"/>
+                        <span id="copyright" class="polaroid__caption"></span>
+                    </div>
 
                     <iframe id="apod_vid_id" type="text/html" width="60%" height="35%" frameborder="0"></iframe>
                     <p id="copyright"></p>
+                </div>
 
-                    <h3 id="apod_title"></h3>
-                    <p id="apod_explaination"></p>
+                <div class="post-card">
+                    <div class="post-stample"></div>
+                    <h1 id="apod_title" class="post-card__title"></h1>
+                    <div id="apod_explaination" class="content-left"></div>
+                    <div class="content-right">
+                        <span class="adress-line">Kennedy Space Center</span>
+                        <span class="adress-line">32899 (FL)</span>
+                        <span class="adress-line">USA</span>
+                    </div>
                 </div>
             </div>
         </div>
