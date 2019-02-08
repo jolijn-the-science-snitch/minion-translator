@@ -86,6 +86,9 @@
             .polaroid__image {
                 max-width: 100%;
                 margin: 0;
+                background: 50% 50% no-repeat; /* 50% 50% centers image in div */
+                width: 40vw;
+                height: 34.5vw;
             }
 
             .polaroid__caption {
@@ -146,10 +149,6 @@
                 font-family: 'La Belle Aurore';
                 font-size: 18px;
                 border-bottom: 1px solid black;
-            }
-
-            .content {
-
             }
         </style>
     </head>
